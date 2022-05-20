@@ -13,6 +13,11 @@ def about():
     return "<h1>ABOUT</h1>  <a href='/'>На главную</a>"
 
 
+@app.route("/cart")
+def cart():
+    return "<h1>CART</h1>  <a href='/'>На главную</a>"
+
+
 
 
 
