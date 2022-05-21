@@ -1,0 +1,26 @@
+{%extends "base.html"%}
+
+{%block title%}
+    Это страница Ильи
+{%endblock%}
+
+{%block body%}
+    <div id="carouselExampleFade" class="carousel slide carousel-fade d-flex align-items-center" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active d-flex justify-content-center">
+          <img src="https://pngicon.ru/file/uploads/vinni-pukh-v-png.png" class="d-block w-100" style="width: 100%; height: 100vh" alt="...">
+        </div>
+        <div class="carousel-item d-flex justify-content-center">
+          <img src="https://i.pinimg.com/564x/3d/62/96/3d62968c2d9f726b8d2d70c144a94a0e.jpg" class="d-block w-100" style="width: 100%; height: 100vh" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+{%endblock%}

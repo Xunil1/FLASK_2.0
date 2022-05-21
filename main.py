@@ -20,7 +20,7 @@ def cart():
 
 @app.route("/cart1")
 def cart1():
-    return "<h1>CART1</h1>  <a href='/'>На главную</a>"
+    return render_template("cart1.html")
 
 
 
