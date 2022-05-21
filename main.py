@@ -18,6 +18,10 @@ def cart():
     return "<h1>CART</h1>  <a href='/'>На главную</a>"
 
 
+@app.route("/cart1")
+def cart1():
+    return "<h1>CART1</h1>  <a href='/'>На главную</a>"
+
 
 
 
