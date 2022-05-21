@@ -1,11 +1,24 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def index():
-    return "<h1>HELLO WORLD</h1>"
+    return render_template("index.html")
+
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+
+@app.route("/cart")
+def cart():
+    return "<h1>CART</h1>  <a href='/'>На главную</a>"
+
+
+
 
 
 if __name__ == "__main__":
