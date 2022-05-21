@@ -22,7 +22,9 @@ def cart():
 def cart1():
     return render_template("cart1.html")
 
-
+@app.route("/secret_page")
+def secret_page():
+    return render_template("secret_page.html")
 
 
 if __name__ == "__main__":
