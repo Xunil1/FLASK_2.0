@@ -43,9 +43,24 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/create-card")
+@app.route("/create-card", methods=['POST', 'GET'])
 def create_card():
-    return render_template("create-card.html")
+    if request.method == 'POST':
+        title = request.form['title']
+        description = request.form['description']
+        full_description = request.form['full_description']
+        price = request.form['price']
+        card = Card(title=title, description=description, full_description=full_description, price=price)
+
+        try:
+            db.session.add(card)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return "При добавлении карточки произошла ошибка"
+    else:
+        return render_template("create-card.html")
+
 
 
 @app.route("/cart1")
