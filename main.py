@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///glass.db'
 db = SQLAlchemy(app)
 
+
 class Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
@@ -17,6 +18,19 @@ class Card(db.Model):
 
     def __repr__(self):
         return '<Card %r>' % self.id
+
+
+class News(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    intro = db.Column(db.String(300), nullable=False)
+    text = db.Column(db.Text, nullable=False)
+    time = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+    def __repr__(self):
+        return '<Card %r>' % self.id
+
 
 @app.route("/")
 def index():
@@ -37,9 +51,15 @@ def create_card():
 def cart1():
     return render_template("cart1.html")
 
+
 @app.route("/secret_page")
 def secret_page():
     return render_template("secret_page.html")
+
+
+@app.route("/create_news")
+def create_news():
+    return render_template("create_news.html")
 
 
 if __name__ == "__main__":
