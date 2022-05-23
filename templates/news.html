@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Все новости на сайте
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5" style="background: #d4e34b; border: 2px solid black">
+    <h1>Все новости на сайте</h1>
+
+    {% for el in news %}
+    <div class="alert alert-info" style="padding: 5px; margin: 10px">
+        <h2>{{ el.title }}</h2>
+        <p>{{ el.intro }}</p>
+        <p><b>Дата: {{ el.time.date() }}</b></p>
+        <a href="/news/{{ el.id }}" class="btn btn-info">Детальнее</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
