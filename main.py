@@ -1,9 +1,22 @@
 from flask import Flask, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
-
+from datetime import datetime
 
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABSE_URI']
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///glass.db'
+db = SQLAlchemy(app)
+
+class Card(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(300), nullable=False)
+    full_description = db.Column(db.Text, nullable=False)
+    price = db.Column(db.Float, default=0)
+    time = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+    def __repr__(self):
+        return '<Card %r>' % self.id
 
 @app.route("/")
 def index():
@@ -15,9 +28,9 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/cart")
-def cart():
-    return "<h1>CART</h1>  <a href='/'>На главную</a>"
+@app.route("/create-card")
+def create_card():
+    return render_template("create-card.html")
 
 
 @app.route("/cart1")
