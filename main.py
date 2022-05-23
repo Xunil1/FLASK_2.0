@@ -85,6 +85,18 @@ def secret_page():
     return render_template("secret_page.html")
 
 
+@app.route("/news")
+def news():
+    news = News.query.order_by(News.time.desc()).all()
+    return render_template("news.html", news=news)
+
+
+@app.route("/news/<int:id>")
+def news_detail(id):
+    new = News.query.get(id)
+    return render_template("news_detail.html", new=new)
+
+
 @app.route("/create_news", methods=['POST', 'GET'])
 def create_news():
     if request.method == 'POST':
@@ -97,7 +109,7 @@ def create_news():
         try:
             db.session.add(news)
             db.session.commit()
-            return redirect('/')
+            return redirect('/news')
         except:
             return "При добавлении новости произошла ошибка"
     else:

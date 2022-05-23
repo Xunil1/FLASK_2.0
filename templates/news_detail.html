@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ new.title }}
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>{{ new.title }}</h1>
+
+    <div class="alert alert-info">
+        <p>{{ new.text }}</p>
+        <p><b>Дата: {{ new.time.date() }}</b></p>
+    </div>
+</div>
+{% endblock %}
