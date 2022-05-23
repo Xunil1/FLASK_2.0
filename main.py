@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -58,9 +58,23 @@ def secret_page():
     return render_template("secret_page.html")
 
 
-@app.route("/create_news")
+@app.route("/create_news", methods=['POST', 'GET'])
 def create_news():
-    return render_template("create_news.html")
+    if request.method == 'POST':
+        title = request.form['title']
+        intro = request.form['intro']
+        text = request.form['text']
+
+        news = News(title=title, intro=intro, text=text)
+
+        try:
+            db.session.add(news)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return "При добавлении новости произошла ошибка"
+    else:
+        return render_template("create_news.html")
 
 
 if __name__ == "__main__":
