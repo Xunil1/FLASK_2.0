@@ -9,8 +9,12 @@
     <h1>{{ new.title }}</h1>
 
     <div class="alert alert-info">
+        <h4>{{ new.intro }}</h4>
         <p>{{ new.text }}</p>
         <p><b>Дата: {{ new.time.date() }}</b></p>
+        <a href="/news/{{ new.id }}/delete" class="btn btn-danger">Удалить</a>
+        <a href="/news/{{ new.id }}/update" class="btn btn-success">Редактировать</a>
+        <a href="/news" class="btn btn-info" style="margin-rigth: 5px; margin-top: 5px; margin-bottom: 5px">Ко всем новостям</a>
     </div>
 </div>
 {% endblock %}

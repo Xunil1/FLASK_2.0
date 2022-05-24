@@ -128,6 +128,35 @@ def news_detail(id):
     return render_template("news_detail.html", new=new)
 
 
+@app.route("/news/<int:id>/delete")
+def new_delete(id):
+    new = News.query.get_or_404(id)
+
+    try:
+        db.session.delete(new)
+        db.session.commit()
+        return redirect('/news')
+    except:
+        return "При удалении новости произошла ошибка"
+
+
+@app.route("/news/<int:id>/update", methods=['POST', 'GET'])
+def new_update(id):
+    new = News.query.get(id)
+    if request.method == 'POST':
+        new.title = request.form['title']
+        new.intro = request.form['intro']
+        new.text = request.form['text']
+
+        try:
+            db.session.commit()
+            return redirect('/news')
+        except:
+            return "При редактировани новости произошла ошибка"
+    else:
+        return render_template("new_update.html", new=new)
+
+
 @app.route("/create_news", methods=['POST', 'GET'])
 def create_news():
     if request.method == 'POST':
