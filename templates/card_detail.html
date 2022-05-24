@@ -1,0 +1,25 @@
+{%extends "base.html"%}
+
+{%block title%}
+    {{card.title}}
+{%endblock%}
+
+{%block body%}
+    <div class="container" style="border: 1px dashed red; background: #e3e3e3;">
+        <h1>{{card.title}}</h1>
+
+        <div class="card" style="width: 100%; margin:0 0 20px;">
+          <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{card.title}}</h5>
+            <p class="card-text">{{card.description}}</p>
+            <p class="card-text"><strong>Цена:</strong> {{card.price}}₽</p>
+            <p class="card-text"><strong>Описание:</strong> {{card.full_description}}</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Дата публикации: {{card.time.date()}}</small><br>
+            <small class="text-muted">Время публикации: {{card.time.time()}}</small>
+          </div>
+        </div>
+    </div>
+{%endblock%}

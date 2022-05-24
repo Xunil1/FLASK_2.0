@@ -43,6 +43,18 @@ def about():
     return render_template("about.html")
 
 
+@app.route("/cards")
+def cards():
+    cards_posts = Card.query.order_by(Card.time.desc()).all()
+    return render_template("cards.html", cards_posts=cards_posts)
+
+
+@app.route("/cards/<int:id>")
+def cards_detail(id):
+    card = Card.query.get(id)
+    return render_template("card_detail.html", card=card)
+
+
 @app.route("/create-card", methods=['POST', 'GET'])
 def create_card():
     if request.method == 'POST':
@@ -55,7 +67,7 @@ def create_card():
         try:
             db.session.add(card)
             db.session.commit()
-            return redirect('/')
+            return redirect('/cards')
         except:
             return "При добавлении карточки произошла ошибка"
     else:
