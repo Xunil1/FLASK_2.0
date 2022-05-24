@@ -14,7 +14,7 @@ class Card(db.Model):
     description = db.Column(db.String(300), nullable=False)
     full_description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, default=0)
-    time = db.Column(db.DateTime, default=datetime.utcnow)
+    time = db.Column(db.DateTime, default=datetime.today())
 
 
     def __repr__(self):
@@ -55,6 +55,35 @@ def cards_detail(id):
     return render_template("card_detail.html", card=card)
 
 
+@app.route("/cards/<int:id>/del")
+def cards_delete(id):
+    card = Card.query.get_or_404(id)
+    try:
+        db.session.delete(card)
+        db.session.commit()
+        return redirect('/cards')
+    except:
+        return "При удалении карточки произошла ошибка"
+
+
+@app.route("/cards/<int:id>/update", methods=['POST', 'GET'])
+def update_card(id):
+    card = Card.query.get(id)
+    if request.method == 'POST':
+        card.title = request.form['title']
+        card.description = request.form['description']
+        card.full_description = request.form['full_description']
+        card.price = request.form['price']
+
+        try:
+            db.session.commit()
+            return redirect('/cards')
+        except:
+            return "При обновлении карточки произошла ошибка"
+    else:
+        return render_template("update-card.html", card=card)
+
+
 @app.route("/create-card", methods=['POST', 'GET'])
 def create_card():
     if request.method == 'POST':
@@ -62,6 +91,8 @@ def create_card():
         description = request.form['description']
         full_description = request.form['full_description']
         price = request.form['price']
+        img = request.form['img']
+        print(img)
         card = Card(title=title, description=description, full_description=full_description, price=price)
 
         try:

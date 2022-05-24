@@ -7,11 +7,11 @@
 {%block body%}
     <div class="container" style="border: 1px dashed red; background: #e3e3e3;">
         <h1>Все товары</h1>
-
+        {% if cards_posts|length > 0 %}
         <div class="card-deck d-flex justify-content-around" style="margin-top: 20px;flex-wrap:wrap;">
             {% for el in cards_posts %}
-                <div class="card" style="width:calc( ( 100% - 400px ) / 3 ); margin:0 0 20px;">
-                  <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+                <div class="card" style="width: 300px; margin:0 0 20px;">
+                  <img class="card-img-top" src="{{ url_for('static', filename='image/Warface_sample.jpg') }}" style="width: 298px; height: 150;" alt="Card image cap">
                   <div class="card-body">
                     <a href="/cards/{{el.id}}" style="text-decoration: none; color: #000; font-size: 20px;" onmouseover="this.style.color='#00f';" onmouseout="this.style.color='#000';">{{el.title}}</a>
                     <p class="card-text">{{el.description}}</p>
@@ -19,10 +19,14 @@
                   </div>
                   <div class="card-footer">
                     <small class="text-muted">Дата публикации: {{el.time.date()}}</small><br>
-                    <small class="text-muted">Время публикации: {{el.time.time()}}</small>
+                    <small class="text-muted">Время публикации: {{el.time.time().isoformat(timespec='minutes')}}</small>
                   </div>
+
                 </div>
             {% endfor %}
         </div>
+        {% else %}
+        <p>Товары не найдены :(</p>
+        {% endif %}
     </div>
 {%endblock%}

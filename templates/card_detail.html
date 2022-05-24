@@ -9,7 +9,9 @@
         <h1>{{card.title}}</h1>
 
         <div class="card" style="width: 100%; margin:0 0 20px;">
-          <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+          <div class="card-img" align="center">
+              <img class="card-img-top" src="{{ url_for('static', filename='image/Warface_sample.jpg') }}" style="width: 600px; height: 400px; " alt="Card image cap">
+          </div>
           <div class="card-body">
             <h5 class="card-title">{{card.title}}</h5>
             <p class="card-text">{{card.description}}</p>
@@ -18,7 +20,12 @@
           </div>
           <div class="card-footer">
             <small class="text-muted">Дата публикации: {{card.time.date()}}</small><br>
-            <small class="text-muted">Время публикации: {{card.time.time()}}</small>
+            <small class="text-muted">Время публикации: {{card.time.time()}}</small><br>
+            <div class="buttons" align="right">
+                <a href="/cards/{{card.id}}/del" class="btn btn-danger">Удалить</a>
+                <a href="/cards/{{card.id}}/update" class="btn btn-warning">Редактировать</a>
+            </div>
+
           </div>
         </div>
     </div>

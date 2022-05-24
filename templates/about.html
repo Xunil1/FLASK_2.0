@@ -4,24 +4,27 @@
     О нас
 {%endblock%}
 
-{%block body%}
-    <div id="carouselExampleFade" class="carousel carousel-dark slide carousel-fade d-flex align-items-center" data-bs-ride="carousel" style="width: 300px; border: 1px solid #000;">
-      <div class="carousel-inner">
-        <div class="carousel-item active d-flex justify-content-center">
-          <img src="{{ url_for('static', filename='image/widewp_42.jpg') }}" class="d-block w-100" style="width: 100%; height: 100vh; object-fit: cover;" alt="...">
+{%block body%}\
+    <div class="carousel-center" align="center">
+      <div id="carouselExampleFade" class="carousel carousel-dark slide carousel-fade d-flex align-items-center" data-bs-ride="carousel"  style="width: 800px; border: 1px solid #000;">
+        <div class="carousel-inner">
+          <div class="carousel-item active d-flex justify-content-center">
+            <img src="{{ url_for('static', filename='image/widewp_42.jpg') }}" class="d-block" style="width: 800px; height: 400px; object-fit: cover;" alt="...">
+          </div>
+          <div class="carousel-item d-flex justify-content-center">
+            <img src="https://klike.net/uploads/posts/2020-05/1589183669_1.jpg" class="d-block" style="width: 800px; height: 400px; object-fit: cover;" alt="...">
+          </div>
         </div>
-        <div class="carousel-item d-flex justify-content-center">
-          <img src="https://klike.net/uploads/posts/2020-05/1589183669_1.jpg" class="d-block w-100" style="width: 100%; height: 100vh; object-fit: cover;" alt="...">
-        </div>
+        <button class="carousel-control-prev" type="button"  data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-      <button class="carousel-control-prev" type="button"  data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
+
 {%endblock%}
 

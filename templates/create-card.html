@@ -6,12 +6,13 @@
 
 {%block body%}
     <div class="container" style="border: 1px dashed red; background: #e3e3e3;">
-        <h1>Добавление карточки товара</h1>
+        <h1>Создание карточки товара</h1>
         <form method="post">
             <input type="text" class="form-control" name="title" id="title" placeholder="Введите название карточки"><br>
             <textarea class="form-control" name="description" id="description" placeholder="Введите краткое описание карточки"></textarea><br>
             <textarea class="form-control" name="full_description" id="full_description" placeholder="Введите полное описание карточки"></textarea><br>
             <input type="text" class="form-control" name="price" id="price" placeholder="Введите цену карточки"><br>
+            <input type="file" class="form-control" name="img" id="img"><br>
             <input type="submit" class="btn btn-success" value="Отправить">
         </form>
     </div>
