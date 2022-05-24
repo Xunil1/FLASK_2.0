@@ -11,11 +11,11 @@
         <div class="card-deck d-flex justify-content-around" style="margin-top: 20px;flex-wrap:wrap;">
             {% for el in cards_posts %}
                 <div class="card" style="width: 300px; margin:0 0 20px;">
-                  <img class="card-img-top" src="{{ url_for('static', filename='image/Warface_sample.jpg') }}" style="width: 298px; height: 150;" alt="Card image cap">
+                  <img class="card-img-top" src="{{ url_for('static', filename='image/' + el.img_path) }}" style="width: 298px; height: 200px; object-fit: cover;" alt="Card image cap">
                   <div class="card-body">
                     <a href="/cards/{{el.id}}" style="text-decoration: none; color: #000; font-size: 20px;" onmouseover="this.style.color='#00f';" onmouseout="this.style.color='#000';">{{el.title}}</a>
                     <p class="card-text">{{el.description}}</p>
-                    <p class="card-text"><strong>Цена:</strong> {{el.price}}₽</p>
+                    <p class="card-text"><strong>Цена:</strong> {{el.price}} ₽</p>
                   </div>
                   <div class="card-footer">
                     <small class="text-muted">Дата публикации: {{el.time.date()}}</small><br>

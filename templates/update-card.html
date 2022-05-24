@@ -7,11 +7,12 @@
 {%block body%}
     <div class="container" style="border: 1px dashed red; background: #e3e3e3;">
         <h1>Обновление карточки товара</h1>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <input type="text" class="form-control" name="title" id="title" value="{{ card.title }}" placeholder="Введите название карточки"><br>
             <textarea class="form-control" name="description" id="description" placeholder="Введите краткое описание карточки">{{ card.description }}</textarea><br>
             <textarea class="form-control" name="full_description" id="full_description" placeholder="Введите полное описание карточки">{{ card.full_description }}</textarea><br>
             <input type="text" class="form-control" name="price" id="price" value="{{ card.price }}" placeholder="Введите цену карточки"><br>
+            <input type="file" class="form-control" name="img" id="img" accept=".png, .jpg, .jpeg"><br>
             <input type="submit" class="btn btn-success" value="Обновить">
         </form>
     </div>

@@ -1,12 +1,15 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import os
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///glass.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+uploads_dir = os.path.join(app.root_path, 'static\image')
 
 class Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -14,6 +17,7 @@ class Card(db.Model):
     description = db.Column(db.String(300), nullable=False)
     full_description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, default=0)
+    img_path = db.Column(db.String(300), nullable=False)
     time = db.Column(db.DateTime, default=datetime.today())
 
 
@@ -69,12 +73,16 @@ def cards_delete(id):
 @app.route("/cards/<int:id>/update", methods=['POST', 'GET'])
 def update_card(id):
     card = Card.query.get(id)
+    path = uploads_dir + '/' + card.img_path
+    if (os.path.isfile(path)):
+        os.remove(path)
     if request.method == 'POST':
         card.title = request.form['title']
         card.description = request.form['description']
         card.full_description = request.form['full_description']
         card.price = request.form['price']
-
+        card.img_path = request.files['img'].filename
+        request.files['img'].save(os.path.join(uploads_dir, request.files['img'].filename))
         try:
             db.session.commit()
             return redirect('/cards')
@@ -84,16 +92,21 @@ def update_card(id):
         return render_template("update-card.html", card=card)
 
 
+
+
+
 @app.route("/create-card", methods=['POST', 'GET'])
 def create_card():
+
     if request.method == 'POST':
         title = request.form['title']
         description = request.form['description']
         full_description = request.form['full_description']
         price = request.form['price']
-        img = request.form['img']
-        print(img)
-        card = Card(title=title, description=description, full_description=full_description, price=price)
+        img = request.files['img']
+        img.save(os.path.join(uploads_dir, img.filename))
+
+        card = Card(title=title, description=description, full_description=full_description, price=price, img_path=img.filename)
 
         try:
             db.session.add(card)
