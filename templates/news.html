@@ -11,6 +11,7 @@
     {% if news|length > 0 %}
         {% for el in news %}
         <div class="alert alert-info" style="padding: 5px; margin: 10px">
+            <img class="new-img-top" src="{{ url_for('static', filename='image/' + el.img_path) }}" style="width: 298px; height: 200px; object-fit: cover;" alt="New image cap">
             <h2>{{ el.title }}</h2>
             <p>{{ el.intro }}</p>
             <p><b>Дата: {{ el.time.date() }}</b></p>

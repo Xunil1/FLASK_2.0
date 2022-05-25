@@ -7,10 +7,11 @@
 {% block body %}
 <div class="container mt-5" style="border: 1px black; background: #e3e3e3; padding: 10px">
     <h1>Добавление новостей</h1>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <input type="text" name="title" id="title" class="form-control" placeholder="Введите название"><br>
         <textarea name="intro" id="intro" class="form-control" placeholder="Введите анонс"></textarea><br>
         <textarea name="text" id="text" class="form-control" placeholder="Введите основной текст"></textarea><br>
+        <input type="file" class="form-control" name="img" id="img" accept=".png, .jpg, .jpeg"><br>
         <input type="submit"  class="btn btn-outline-success" value="Отправить">
     </form>
 </div>

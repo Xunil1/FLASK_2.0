@@ -30,11 +30,12 @@ class News(db.Model):
     title = db.Column(db.String(100), nullable=False)
     intro = db.Column(db.String(300), nullable=False)
     text = db.Column(db.Text, nullable=False)
+    img_path = db.Column(db.String(300), nullable=False)
     time = db.Column(db.DateTime, default=datetime.utcnow)
 
 
     def __repr__(self):
-        return '<Card %r>' % self.id
+        return '<New %r>' % self.id
 
 
 @app.route("/")
@@ -176,8 +177,10 @@ def create_news():
         title = request.form['title']
         intro = request.form['intro']
         text = request.form['text']
+        img = request.files['img']
+        img.save(os.path.join(uploads_dir, img.filename))
 
-        news = News(title=title, intro=intro, text=text)
+        news = News(title=title, intro=intro, text=text, img_path=img.filename)
 
         try:
             db.session.add(news)

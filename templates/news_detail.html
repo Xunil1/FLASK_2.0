@@ -9,6 +9,9 @@
     <h1>{{ new.title }}</h1>
 
     <div class="alert alert-info">
+        <div class="card-img" align="center">
+            <img class="new-img-top" src="{{ url_for('static', filename='image/' + new.img_path) }}" style="width: 600px;" alt="New image cap">
+        </div>
         <h4>{{ new.intro }}</h4>
         <p>{{ new.text }}</p>
         <p><b>Дата: {{ new.time.date() }}</b></p>
