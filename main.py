@@ -38,6 +38,21 @@ class News(db.Model):
         return '<New %r>' % self.id
 
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100), nullable=False, unique=True)
+    name = db.Column(db.String(300), nullable=False)
+    surname = db.Column(db.String(300), nullable=False)
+    mail = db.Column(db.String(300), nullable=False)
+    phone = db.Column(db.String(300), nullable=False)
+    password = db.Column(db.String(300), nullable=False)
+    time = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+    def __repr__(self):
+        return '<User %r>' % self.id
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -93,9 +108,6 @@ def update_card(id):
         return render_template("update-card.html", card=card)
 
 
-
-
-
 @app.route("/create-card", methods=['POST', 'GET'])
 def create_card():
 
@@ -117,7 +129,6 @@ def create_card():
             return "При добавлении карточки произошла ошибка"
     else:
         return render_template("create-card.html")
-
 
 
 @app.route("/cart1")
@@ -190,6 +201,39 @@ def create_news():
             return "При добавлении новости произошла ошибка"
     else:
         return render_template("create_news.html")
+
+
+@app.route("/register", methods=['POST', 'GET'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        name = request.form['name']
+        surname = request.form['surname']
+        mail = request.form['mail']
+        phone = request.form['phone']
+        password = request.form['password']
+
+        user = User(username=username, name=name, surname=surname, mail=mail, phone=phone, password=password)
+
+        try:
+            db.session.add(user)
+            db.session.commit()
+            return redirect('/login')
+        except:
+            return "При добавлении пользователя произошла ошибка"
+    else:
+        return render_template("register.html")
+
+
+@app.route("/login", methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        user = User.query.filter_by(username=username).first()
+        if request.form['password'] == user.password:
+            return redirect('/cards')
+    else:
+        return render_template("login.html")
 
 
 if __name__ == "__main__":
