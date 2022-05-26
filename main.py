@@ -53,6 +53,18 @@ class User(db.Model):
         return '<User %r>' % self.id
 
 
+class User_order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(300), nullable=False)
+    phone = db.Column(db.String(300), nullable=False)
+    address = db.Column(db.String(300), nullable=False)
+    time = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+    def __repr__(self):
+        return '<User_order %r>' % self.id
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -234,6 +246,24 @@ def login():
             return redirect('/cards')
     else:
         return render_template("login.html")
+
+
+@app.route("/order", methods=['POST', 'GET'])
+def order():
+    if request.method == 'POST':
+        name = request.form['name']
+        phone = request.form['phone']
+        address = request.form['address']
+        user_order = User_order(name=name, phone=phone, address=address)
+
+        try:
+            db.session.add(user_order)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return "При создании заказа произошла ошибка"
+    else:
+        return render_template("order.html")
 
 
 if __name__ == "__main__":

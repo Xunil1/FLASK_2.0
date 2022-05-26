@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+
+{%block title%}
+    Создание заказа
+{%endblock%}
+
+{%block body%}
+    <div class="container" style="border: 1px dashed red; background: #e3e3e3; width: 50%;">
+        <h1>Создание заказа</h1>
+        <form method="post">
+            <input type="text" class="form-control" name="name" id="name" style="height: 50px" placeholder="Введите свое имя"><br>
+            <input type="text" class="form-control" name="phone" id="phone" style="height: 50px" placeholder="Введите номер телефона"><br>
+            <input type="text" class="form-control" name="address" id="address" style="height: 50px" placeholder="Введите адрес"><br>
+            <div align="right">
+                <input type="submit" class="btn btn-success" style="margin-bottom: 10px" value="Заказать">
+            </div>
+        </form>
+    </div>
+{%endblock%}
