@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
-
+import telebot_our
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///glass.db'
@@ -58,6 +58,7 @@ class User_order(db.Model):
     name = db.Column(db.String(300), nullable=False)
     phone = db.Column(db.String(300), nullable=False)
     address = db.Column(db.String(300), nullable=False)
+    product_id = db.Column(db.Integer)
     time = db.Column(db.DateTime, default=datetime.utcnow)
 
 
@@ -248,17 +249,23 @@ def login():
         return render_template("login.html")
 
 
-@app.route("/order", methods=['POST', 'GET'])
-def order():
+@app.route("/order/<int:id>", methods=['POST', 'GET'])
+def order(id):
     if request.method == 'POST':
         name = request.form['name']
         phone = request.form['phone']
         address = request.form['address']
-        user_order = User_order(name=name, phone=phone, address=address)
+        user_order = User_order(name=name, phone=phone, address=address, product_id=id)
+
+
 
         try:
             db.session.add(user_order)
             db.session.commit()
+            order = User_order.query.order_by(User_order.time.desc()).first()
+            card = Card.query.get(id)
+            to_telegram = {'id': order.id, 'name': order.name, 'phone': order.phone, 'address': order.address, 'product_id': card.id, 'product_name': card.title, 'product_price': card.price}
+            telebot_our.send_message(to_telegram)
             return redirect('/')
         except:
             return "При создании заказа произошла ошибка"
