@@ -9,6 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///glass.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+
 uploads_dir = os.path.join(app.root_path, 'static\image')
 
 class Card(db.Model):
@@ -245,6 +246,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if request.form['password'] == user.password:
             return redirect('/cards')
+
     else:
         return render_template("login.html")
 
@@ -256,9 +258,6 @@ def order(id):
         phone = request.form['phone']
         address = request.form['address']
         user_order = User_order(name=name, phone=phone, address=address, product_id=id)
-
-
-
         try:
             db.session.add(user_order)
             db.session.commit()
