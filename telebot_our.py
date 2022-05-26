@@ -19,3 +19,6 @@ def send_message(turple_order):
     file.close()
     message = "Номер заказа: " + str(turple_order["id"]) + "\nИмя: " + str(turple_order["name"]) + "\nТелефон: " + str(turple_order["phone"]) + "\nАдрес: " + str(turple_order["address"]) + "\nID товара: "   + str(turple_order["product_id"]) + "\nНазвание товара: " + str(turple_order["product_name"]) + "\nЦена товара: " + str(turple_order["product_price"])  + " ₽"
     bot.send_message(int(chat_id), message)
+
+
+#bot.polling(none_stop=True)
