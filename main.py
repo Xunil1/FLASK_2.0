@@ -67,6 +67,18 @@ class User_order(db.Model):
         return '<User_order %r>' % self.id
 
 
+class Order_from_header(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(300), nullable=False)
+    phone = db.Column(db.String(300), nullable=False)
+    address = db.Column(db.String(300), nullable=False)
+    time = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+    def __repr__(self):
+        return '<Order_from_header %r>' % self.id
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -270,6 +282,25 @@ def order(id):
             return "При создании заказа произошла ошибка"
     else:
         return render_template("order.html")
+
+
+@app.route("/order_from_header", methods=['POST', 'GET'])
+def order_from_header():
+    if request.method == 'POST':
+        name = request.form['name']
+        phone = request.form['phone']
+        address = request.form['address']
+        order_from_header = Order_from_header(name=name, phone=phone, address=address)
+
+        try:
+            db.session.add(order_from_header)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return "При создании заказа произошла ошибка"
+
+    else:
+        return render_template("order_from_header.html")
 
 
 if __name__ == "__main__":
